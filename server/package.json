@@ -5,7 +5,8 @@
     "license": "MIT",
     "type": "module",
     "scripts": {
-        "dev": "nodemon --quiet index.js"
+        "babel-node": "babel-node --presets='@babel/preset-env'",
+        "dev": "nodemon --exec babel-node index.js"
     },
     "dependencies": {
         "@apollo/server": "^4.5.0",
@@ -16,5 +17,10 @@
         "express-graphql": "^0.12.0",
         "graphql": "^16.6.0",
         "nodemon": "^2.0.21"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.3",
+        "@babel/node": "^7.20.7",
+        "@babel/preset-env": "^7.20.2"
     }
 }
