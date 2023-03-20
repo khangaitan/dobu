@@ -1,13 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery, gql } from "@apollo/client";
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+
 // timestamp libs start
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
+
 TimeAgo.setDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
-// timestamp libs end
-
 const POST = gql`
   query getPost($id: ID!) {
     blogpost(id: $id) {
@@ -16,6 +17,14 @@ const POST = gql`
           title
           body
           createdAt
+          categories {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
         }
       }
     }
@@ -29,12 +38,18 @@ export default function PostDetail() {
 
 
   const post = data.blogpost.data
-  return (
+  return (<>
+    <h2>Thread</h2>
     <div className="review-card">
       <div className="rating"></div>
       <h2>{post.attributes.title}</h2>
       <small>{timeAgo.format(Date.parse(post.attributes.createdAt))}</small>
-      <p>{post.attributes.body}</p>
+      {post.attributes.categories.data
+        && post.attributes.categories.data.map(cat => (
+          <button key={cat.id}>{cat.attributes.name}</button>
+        ))
+      }
+      <ReactMarkdown>{post.attributes.body}</ReactMarkdown>
     </div>
-  )
+  </>)
 }

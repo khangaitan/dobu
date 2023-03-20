@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "pinposts",
+  "info": {
+    "singularName": "pinpost",
+    "pluralName": "pinposts",
+    "displayName": "Pinpost"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "blogposts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blogpost.blogpost"
+    }
+  }
+}
